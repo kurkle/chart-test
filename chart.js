@@ -2250,6 +2250,7 @@ const effects = {
     ? effects.easeInBounce(t * 2) * 0.5
     : effects.easeOutBounce(t * 2 - 1) * 0.5 + 0.5,
 };
+var effects$1 = effects;
 
 function _pointInLine(p1, p2, t, mode) {
   return {
@@ -2695,7 +2696,7 @@ function styleChanged(style, prevStyle) {
 
 var helpers = /*#__PURE__*/Object.freeze({
 __proto__: null,
-easingEffects: effects,
+easingEffects: effects$1,
 isPatternOrGradient: isPatternOrGradient,
 color: color,
 getHoverColor: getHoverColor,
@@ -3625,7 +3626,7 @@ class Animation {
     const from = resolve([cfg.from, currentValue, to]);
     this._active = true;
     this._fn = cfg.fn || interpolators[cfg.type || typeof from];
-    this._easing = effects[cfg.easing] || effects.linear;
+    this._easing = effects$1[cfg.easing] || effects$1.linear;
     this._start = Math.floor(Date.now() + (cfg.delay || 0));
     this._duration = this._total = Math.floor(cfg.duration);
     this._loop = !!cfg.loop;
@@ -4681,73 +4682,6 @@ function calculateDelta(tickValue, ticks) {
   return delta;
 }
 var Ticks = {formatters};
-
-defaults.set('scale', {
-  display: true,
-  offset: false,
-  reverse: false,
-  beginAtZero: false,
-  bounds: 'ticks',
-  grace: 0,
-  grid: {
-    display: true,
-    lineWidth: 1,
-    drawBorder: true,
-    drawOnChartArea: true,
-    drawTicks: true,
-    tickLength: 8,
-    tickWidth: (_ctx, options) => options.lineWidth,
-    tickColor: (_ctx, options) => options.color,
-    offset: false,
-    borderDash: [],
-    borderDashOffset: 0.0,
-    borderWidth: 1
-  },
-  title: {
-    display: false,
-    text: '',
-    padding: {
-      top: 4,
-      bottom: 4
-    }
-  },
-  ticks: {
-    minRotation: 0,
-    maxRotation: 50,
-    mirror: false,
-    textStrokeWidth: 0,
-    textStrokeColor: '',
-    padding: 3,
-    display: true,
-    autoSkip: true,
-    autoSkipPadding: 3,
-    labelOffset: 0,
-    callback: Ticks.formatters.values,
-    minor: {},
-    major: {},
-    align: 'center',
-    crossAlign: 'near',
-    showLabelBackdrop: false,
-    backdropColor: 'rgba(255, 255, 255, 0.75)',
-    backdropPadding: 2,
-  }
-});
-defaults.route('scale.ticks', 'color', '', 'color');
-defaults.route('scale.grid', 'color', '', 'borderColor');
-defaults.route('scale.grid', 'borderColor', '', 'borderColor');
-defaults.route('scale.title', 'color', '', 'color');
-defaults.describe('scale', {
-  _fallback: false,
-  _scriptable: (name) => !name.startsWith('before') && !name.startsWith('after') && name !== 'callback' && name !== 'parser',
-  _indexable: (name) => name !== 'borderDash' && name !== 'tickBorderDash',
-});
-defaults.describe('scales', {
-  _fallback: 'scale',
-});
-defaults.describe('scale.ticks', {
-  _scriptable: (name) => name !== 'backdropPadding' && name !== 'callback',
-  _indexable: (name) => name !== 'backdropPadding',
-});
 
 function autoSkip(scale, ticks) {
   const tickOpts = scale.options.ticks;
@@ -7488,6 +7422,7 @@ Object.defineProperties(Chart, {
     }
   }
 });
+var Chart$1 = Chart;
 
 function abstract() {
   throw new Error('This method is not implemented: Check that a complete date adapter is provided.');
@@ -13357,6 +13292,7 @@ class TimeSeriesScale extends TimeScale {
 }
 TimeSeriesScale.id = 'timeseries';
 TimeSeriesScale.defaults = TimeScale.defaults;
+var TimeSeriesScale$1 = TimeSeriesScale;
 
 var scales = /*#__PURE__*/Object.freeze({
 __proto__: null,
@@ -13365,30 +13301,30 @@ LinearScale: LinearScale,
 LogarithmicScale: LogarithmicScale,
 RadialLinearScale: RadialLinearScale,
 TimeScale: TimeScale,
-TimeSeriesScale: TimeSeriesScale
+TimeSeriesScale: TimeSeriesScale$1
 });
 
-Chart.register(controllers, scales, elements, plugins);
-Chart.helpers = {...helpers};
-Chart._adapters = _adapters;
-Chart.Animation = Animation;
-Chart.Animations = Animations;
-Chart.animator = animator;
-Chart.controllers = registry.controllers.items;
-Chart.DatasetController = DatasetController;
-Chart.Element = Element;
-Chart.elements = elements;
-Chart.Interaction = Interaction;
-Chart.layouts = layouts;
-Chart.platforms = platforms;
-Chart.Scale = Scale;
-Chart.Ticks = Ticks;
-Object.assign(Chart, controllers, scales, elements, plugins, platforms);
-Chart.Chart = Chart;
+Chart$1.register(controllers, scales, elements, plugins);
+Chart$1.helpers = {...helpers};
+Chart$1._adapters = _adapters;
+Chart$1.Animation = Animation;
+Chart$1.Animations = Animations;
+Chart$1.animator = animator;
+Chart$1.controllers = registry.controllers.items;
+Chart$1.DatasetController = DatasetController;
+Chart$1.Element = Element;
+Chart$1.elements = elements;
+Chart$1.Interaction = Interaction;
+Chart$1.layouts = layouts;
+Chart$1.platforms = platforms;
+Chart$1.Scale = Scale;
+Chart$1.Ticks = Ticks;
+Object.assign(Chart$1, controllers, scales, elements, plugins, platforms);
+Chart$1.Chart = Chart$1;
 if (typeof window !== 'undefined') {
-  window.Chart = Chart;
+  window.Chart = Chart$1;
 }
 
-return Chart;
+return Chart$1;
 
 }));
